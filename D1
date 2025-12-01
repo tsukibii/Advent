@@ -1,0 +1,31 @@
+const fs = require("fs");
+
+const INPUT_FILE = "input.txt";
+let startPos = 50;
+let counter = 0;
+
+function move(pos, delta) {
+  const size = 100;
+  return ((pos + delta) % size + size) % size;
+}
+
+const instructions = fs.readFileSync(INPUT_FILE, "utf8")
+  .trim()
+  .split(/\s+/);
+
+let pos = startPos;
+
+for (const instr of instructions) {
+  const dir = instr[0];              
+  const steps = parseInt(instr.slice(1), 10);
+
+  const delta = dir === "L" ? -steps : steps;
+
+  pos = move(pos, delta);
+
+  if (pos === 0) {
+    counter++;
+  }
+}
+
+console.log(counter);
