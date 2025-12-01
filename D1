@@ -4,9 +4,9 @@ const INPUT_FILE = "input.txt";
 let startPos = 50;
 let counter = 0;
 
-function move(pos, delta) {
+function move(pos, x) {
   const size = 100;
-  return ((pos + delta) % size + size) % size;
+  return ((pos + x) % size + size) % size;
 }
 
 const instructions = fs.readFileSync(INPUT_FILE, "utf8")
@@ -19,9 +19,9 @@ for (const instr of instructions) {
   const dir = instr[0];              
   const steps = parseInt(instr.slice(1), 10);
 
-  const delta = dir === "L" ? -steps : steps;
+  const x = dir === "L" ? -steps : steps;
 
-  pos = move(pos, delta);
+  pos = move(pos, x);
 
   if (pos === 0) {
     counter++;
